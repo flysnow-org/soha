@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+    <meta name="author" content="flysnow">
+    <meta name="description" content="SOHA is an enhanced library of Go(Golang) templates，it extends the capabilities of the Go template engine by custom function。">
+    <title>The SOHA Example</title>
+    <style type="text/css">
+        .output_wrapper pre code {
+            font-family: Consolas, Inconsolata, Courier, monospace;
+            display: block !important;
+            white-space: pre !important;
+            word-wrap: normal !important;
+            word-break: normal !important;
+            overflow: auto !important;
+        }
+
+        .output_wrapper a:hover {
+            text-decoration: underline;
+            color: rgb(0, 96, 100);
+        }
+
+        .output_wrapper figcaption {
+            margin-top: 10px;
+            text-align: center;
+            color: rgb(153, 153, 153);
+            font-size: 0.7em;
+        }
+
+
+        .output_wrapper pre code {
+            display: -webkit-box !important;
+        }
+
+        .output_wrapper .hljs {
+            display: block;
+            overflow-x: auto;
+            padding: 0.5em;
+            color: rgb(51, 51, 51);
+            background: rgb(248, 248, 248);
+        }
+
+
+        .output_wrapper pre code {
+            line-height: 18px;
+            font-size: 14px;
+            font-weight: normal;
+            word-spacing: 0px;
+            letter-spacing: 0px;
+        }
+
+        .output_wrapper {
+            font-size: 16px;
+            color: rgb(62, 62, 62);
+            line-height: 1.6;
+            word-spacing: 0px;
+            letter-spacing: 0px;
+            font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+        }
+
+        .output_wrapper * {
+            font-size: inherit;
+            color: inherit;
+            line-height: inherit;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .output_wrapper p {
+            margin: 1.5em 0px;
+        }
+
+        .output_wrapper h1,
+        .output_wrapper h2,
+        .output_wrapper h3,
+        .output_wrapper h4,
+        .output_wrapper h5,
+        .output_wrapper h6 {
+            margin: 1.5em 0px;
+            font-weight: bold;
+        }
+
+        .output_wrapper h1 {
+            font-size: 1.6em;
+        }
+
+        .output_wrapper h2 {
+            font-size: 1.4em;
+        }
+
+        .output_wrapper h3 {
+            font-size: 1.3em;
+        }
+
+        .output_wrapper h4 {
+            font-size: 1.2em;
+        }
+
+        .output_wrapper h5 {
+            font-size: 1em;
+        }
+
+        .output_wrapper h6 {
+            font-size: 1em;
+        }
+
+        .output_wrapper ul,
+        .output_wrapper ol {
+            padding-left: 32px;
+        }
+
+        .output_wrapper ul {
+            list-style-type: disc;
+        }
+
+        .output_wrapper ol {
+            list-style-type: decimal;
+        }
+
+        .output_wrapper li * {}
+
+        .output_wrapper li {
+            margin-bottom: 0.5em;
+        }
+
+        .output_wrapper pre code {
+            font-family: Consolas, Inconsolata, Courier, monospace;
+            border-radius: 0px;
+        }
+
+        .output_wrapper blockquote {
+            display: block;
+            padding: 15px 15px 15px 1rem;
+            font-size: 0.9em;
+            margin: 1em 0px;
+            color: rgb(129, 145, 152);
+            border-left: 6px solid rgb(220, 230, 240);
+            background: rgb(242, 247, 251);
+            overflow: auto;
+            overflow-wrap: normal;
+            word-break: normal;
+        }
+
+        .output_wrapper blockquote p {
+            margin: 0px;
+        }
+
+        .output_wrapper a {
+            text-decoration: none;
+            color: rgb(30, 107, 184);
+            overflow-wrap: break-word;
+        }
+
+        .output_wrapper strong {
+            font-weight: bold;
+        }
+
+        .output_wrapper em {
+            font-style: italic;
+        }
+
+        .output_wrapper del {
+            font-style: italic;
+        }
+
+        .output_wrapper strong em {
+            font-weight: bold;
+        }
+
+        .output_wrapper hr {
+            height: 1px;
+            margin: 1.5rem 0px;
+            border-right: none;
+            border-bottom: none;
+            border-left: none;
+            border-image: initial;
+            border-top: 1px dashed rgb(165, 165, 165);
+        }
+
+        .output_wrapper code {
+            overflow-wrap: break-word;
+            padding: 2px 4px;
+            border-radius: 4px;
+            margin: 0px 2px;
+            color: rgb(233, 105, 0);
+            background: rgb(248, 248, 248);
+        }
+
+        .output_wrapper img {
+            display: block;
+            margin: 0px auto;
+            max-width: 100%;
+        }
+
+        .output_wrapper figcaption {
+            margin-top: 10px;
+            text-align: center;
+            color: rgb(153, 153, 153);
+            font-size: 0.7em;
+        }
+
+        .output_wrapper a[href^="#"] sup {
+            vertical-align: super;
+            margin: 0px 2px;
+            padding: 1px 3px;
+            color: rgb(255, 255, 255);
+            background: rgb(102, 102, 102);
+            font-size: 0.7em;
+        }
+
+    </style>
+    <style type="text/css" id="export_setting_css">
+        body {
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+            background: rgb(81, 154, 178);
+        }
+
+        #export_content {
+            margin: 40px 20%;
+            padding: 20px;
+            border: 1px solid rgb(149, 155, 111);
+            background: rgb(255, 255, 255);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="export_content">
+        <div class="output_wrapper" id="output_wrapper_id">
+            <h1 id="hsoha"><span>SOHA</span></h1>
+            <p>SOHA is an enhanced library of Go(Golang) templates，it extends the capabilities of the Go template engine by custom function。</p>
+            <p>SOHA是一个Go语言(Golang)模板的增强库，它通过自定义函数的方式扩展了Golang自带的模板引擎能力，让我们可以更好的开发Go Web应用。</p>
+            <h2 id="h"><span>Prerequisite</span></h2>
+            <ol>
+                <li><span>Go version 1.13+</span></li>
+                <li><span>Using Go Modules</span></li>
+            </ol>
+
+            <h2 id="hsoha-1"><span>SOHA Example</span></h2>
+
+            <h4 id="hint"><span>int</span></h4>
+            <pre><code class="hljs">Example:{{`{{int "1" |printf "%T"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{int "1" |printf "%T"}}</code></pre>
+
+            <h4 id="hint"><span>string</span></h4>
+            <pre><code class="hljs">Example:{{`{{string 1 |printf "%T"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{string 1 |printf "%T"}}</code></pre>
+
+            <h4 id="hint"><span>float</span></h4>
+            <pre><code class="hljs">Example:{{`{{float "1.23" |printf "%T"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{float "1.23" |printf "%T"}}</code></pre>
+
+            <h4 id="hint"><span>first</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{first 3 .sliceData}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{first 3 .sliceData}}</code></pre>
+
+            <h4 id="hint"><span>last</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{last 2 .sliceData}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{last 2 .sliceData}}</code></pre>
+
+            <h4 id="hint"><span>after</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{after 4 .sliceData}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{after 4 .sliceData}}</code></pre>
+
+            <h4 id="hint"><span>complement</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">OriginData1:{{.sliceData1}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{.sliceData | complement .sliceData1}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{.sliceData | complement .sliceData1}}</code></pre>
+
+            <h4 id="hint"><span>symdiff</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">OriginData1:{{.sliceData1}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{.sliceData | symdiff .sliceData1}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{.sliceData | symdiff .sliceData1}}</code></pre>
+
+            <h4 id="hint"><span>dict</span></h4>
+            <pre><code class="hljs">Example:{{`{{dict "name" "1.23" "age" 20 |printf "%T"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{dict "name" "1.23" "age" 20 |printf "%T"}}</code></pre>
+
+            <h4 id="hint"><span>echoParam</span></h4>
+            <pre><code class="hljs">Example:{{`{{echoParam (dict "name" "1.23" "age" 20) "age"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{echoParam (dict "name" "1.23" "age" 20) "age"}}</code></pre>
+
+            <h4 id="hint"><span>in</span></h4>
+            <pre><code class="hljs">Example:{{`{{in .sliceData "e"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{in .sliceData "e"}}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{in .sliceData "z"}}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{in .sliceData "z"}}</code></pre>
+            <pre><code class="hljs">Example2:{{`{{in "hello soha" "soha"}}`}}</code></pre>
+            <pre><code class="hljs">Output2:{{in "hello soha" "soha"}}</code></pre>
+
+            <h4 id="hint"><span>intersect</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">OriginData1:{{.sliceData1}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{intersect .sliceData .sliceData1}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{intersect .sliceData .sliceData1}}</code></pre>
+
+            <h4 id="hint"><span>isset</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">OriginData1:{{.sliceData1}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{isset .sliceData 2}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{isset .sliceData 2}}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{isset .sliceData1 10}}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{isset .sliceData1 10}}</code></pre>
+
+            <h4 id="hint"><span>querify</span></h4>
+            <pre><code class="hljs">Example:{{`{{querify "name" "张三" "age" 20}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{querify "name" "张三" "age" 20}}</code></pre>
+
+            <h4 id="hint"><span>isset</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">OriginData1:{{.sliceData1}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{shuffle .sliceData}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{shuffle .sliceData}}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{shuffle .sliceData1}}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{shuffle .sliceData1}}</code></pre>
+
+            <h4 id="hint"><span>add</span></h4>
+            <pre><code class="hljs">Example:{{`{{add 1 2 |println}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{add 1 2 |println}}</code></pre>
+
+        </div>
+    </div>
+</body>
+
+</html>

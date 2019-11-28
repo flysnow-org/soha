@@ -1,0 +1,70 @@
+// Copyright 2017 The Hugo Authors. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package transform
+
+import (
+	"github.com/flysnow-org/soha/deps"
+	"github.com/flysnow-org/soha/internal"
+)
+
+const name = "transform"
+
+func init() {
+	f := func(d *deps.Deps) *internal.TemplateFuncsNamespace {
+		ctx := New(d)
+
+		ns := &internal.TemplateFuncsNamespace{
+			Name:    name,
+			Context: func(args ...interface{}) interface{} { return ctx },
+		}
+
+		ns.AddMethodMapping(ctx.HTMLEscape,
+			[]string{"htmlEscape"},
+			[][2]string{
+				{
+					`{{ htmlEscape "Cathal Garvey & The Sunshine Band <cathal@foo.bar>" | safeHTML}}`,
+					`Cathal Garvey &amp; The Sunshine Band &lt;cathal@foo.bar&gt;`},
+				{
+					`{{ htmlEscape "Cathal Garvey & The Sunshine Band <cathal@foo.bar>"}}`,
+					`Cathal Garvey &amp;amp; The Sunshine Band &amp;lt;cathal@foo.bar&amp;gt;`},
+				{
+					`{{ htmlEscape "Cathal Garvey & The Sunshine Band <cathal@foo.bar>" | htmlUnescape | safeHTML }}`,
+					`Cathal Garvey & The Sunshine Band <cathal@foo.bar>`},
+			},
+		)
+
+		ns.AddMethodMapping(ctx.HTMLUnescape,
+			[]string{"htmlUnescape"},
+			[][2]string{
+				{
+					`{{ htmlUnescape "Cathal Garvey &amp; The Sunshine Band &lt;cathal@foo.bar&gt;" | safeHTML}}`,
+					`Cathal Garvey & The Sunshine Band <cathal@foo.bar>`},
+				{
+					`{{"Cathal Garvey &amp;amp; The Sunshine Band &amp;lt;cathal@foo.bar&amp;gt;" | htmlUnescape | htmlUnescape | safeHTML}}`,
+					`Cathal Garvey & The Sunshine Band <cathal@foo.bar>`},
+				{
+					`{{"Cathal Garvey &amp;amp; The Sunshine Band &amp;lt;cathal@foo.bar&amp;gt;" | htmlUnescape | htmlUnescape }}`,
+					`Cathal Garvey &amp; The Sunshine Band &lt;cathal@foo.bar&gt;`},
+				{
+					`{{ htmlUnescape "Cathal Garvey &amp; The Sunshine Band &lt;cathal@foo.bar&gt;" | htmlEscape | safeHTML }}`,
+					`Cathal Garvey &amp; The Sunshine Band &lt;cathal@foo.bar&gt;`},
+			},
+		)
+
+		return ns
+
+	}
+
+	internal.AddTemplateFuncsNamespace(f)
+}
