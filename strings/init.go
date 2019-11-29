@@ -79,14 +79,6 @@ func init() {
 			[][2]string{},
 		)
 
-		ns.AddMethodMapping(ctx.SliceString,
-			[]string{"slicestr"},
-			[][2]string{
-				{`{{slicestr "BatMan" 0 3}}`, `Bat`},
-				{`{{slicestr "BatMan" 3}}`, `Man`},
-			},
-		)
-
 		ns.AddMethodMapping(ctx.Split,
 			[]string{"split"},
 			[][2]string{},

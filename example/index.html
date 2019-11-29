@@ -255,6 +255,8 @@
             <pre><code class="hljs">Example:{{`{{float "1.23" |printf "%T"}}`}}</code></pre>
             <pre><code class="hljs">Output:{{float "1.23" |printf "%T"}}</code></pre>
 
+            <hr/>
+
             <h4 id="hint"><span>first</span></h4>
             <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
             <pre><code class="hljs">Example:{{`{{first 3 .sliceData}}`}}</code></pre>
@@ -304,6 +306,12 @@
             <pre><code class="hljs">Example:{{`{{intersect .sliceData .sliceData1}}`}}</code></pre>
             <pre><code class="hljs">Output:{{intersect .sliceData .sliceData1}}</code></pre>
 
+            <h4 id="hint"><span>union</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">OriginData1:{{.sliceData1}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{union .sliceData .sliceData1}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{union .sliceData .sliceData1}}</code></pre>
+
             <h4 id="hint"><span>isset</span></h4>
             <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
             <pre><code class="hljs">OriginData1:{{.sliceData1}}</code></pre>
@@ -324,9 +332,173 @@
             <pre><code class="hljs">Example1:{{`{{shuffle .sliceData1}}`}}</code></pre>
             <pre><code class="hljs">Output1:{{shuffle .sliceData1}}</code></pre>
 
-            <h4 id="hint"><span>add</span></h4>
-            <pre><code class="hljs">Example:{{`{{add 1 2 |println}}`}}</code></pre>
-            <pre><code class="hljs">Output:{{add 1 2 |println}}</code></pre>
+            <h4 id="hint"><span>where</span></h4>
+            <pre><code class="hljs">OriginData2:{{.sliceData2}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{where .sliceData2 "name" "张三"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{where .sliceData2 "Name" "张三"}}</code></pre>
+
+            <h4 id="hint"><span>append</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{sliceData|append "z"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{.sliceData|append "z"}}</code></pre>
+
+            <h4 id="hint"><span>seq</span></h4>
+            <pre><code class="hljs">Example:{{`{{seq 10}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{seq 10}}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{seq 5 10}}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{seq 5 10}}</code></pre>
+            <pre><code class="hljs">Example2:{{`{{seq 5 2 10}}`}}</code></pre>
+            <pre><code class="hljs">Output2:{{seq 5 2 10}}</code></pre>
+
+            <h4 id="hint"><span>uniq</span></h4>
+            <pre><code class="hljs">OriginData:{{.sliceData}}</code></pre>
+            <pre><code class="hljs">OriginData1:{{.sliceData1}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{(.sliceData|append .sliceData1)|uniq}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{(.sliceData|append .sliceData1)|uniq}}</code></pre>
+
+            <hr/>
+
+            <h4 id="hint"><span>md5</span></h4>
+            <pre><code class="hljs">Example:{{`{{md5 "123456" |println}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{md5 "123456" |println}}</code></pre>
+
+            <h4 id="hint"><span>sha1</span></h4>
+            <pre><code class="hljs">Example:{{`{{sha1 "123456" |println}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{sha1 "123456" |println}}</code></pre>
+
+            <h4 id="hint"><span>sha256</span></h4>
+            <pre><code class="hljs">Example:{{`{{sha256 "123456" |println}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{sha256 "123456" |println}}</code></pre>
+
+            <hr/>
+
+            <h4 id="hint"><span>base64Encode</span></h4>
+            <pre><code class="hljs">Example:{{`{{base64Encode "123456"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{base64Encode "123456"}}</code></pre>
+
+            <h4 id="hint"><span>base64Decode</span></h4>
+            <pre><code class="hljs">Example:{{`{{base64Encode "123456" | base64Decode}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{base64Encode "123456" | base64Decode}}</code></pre>
+
+            <h4 id="hint"><span>jsonify</span></h4>
+            <pre><code class="hljs">OriginData2:{{.sliceData2}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{.sliceData2|jsonify}`}}</code></pre>
+            <pre><code class="hljs">Output:{{.sliceData2|jsonify}}</code></pre>
+
+            <hr/>
+
+            <h4 id="hint"><span>numFmt</span></h4>
+            <pre><code class="hljs">Example:{{`{{numFmt 2 12345.6789}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{numFmt 2 12345.6789}}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{numFmt 2 12345.6789 "- , ."}}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{numFmt 2 12345.6789 "- , ."}}</code></pre>
+            <pre><code class="hljs">Example2:{{`{{numFmt 6 -12345.6789 "- ."}}`}}</code></pre>
+            <pre><code class="hljs">Output2:{{numFmt 6 -12345.6789 "- ."}}</code></pre>
+            <pre><code class="hljs">Example3:{{`{{numFmt 0 -12345.6789 "- . ,"}}`}}</code></pre>
+            <pre><code class="hljs">Output3:{{numFmt 0 -12345.6789 "- . ,"}}</code></pre>
+            <pre><code class="hljs">Example4:{{`{{-98765.4321 | numFmt 2}}`}}</code></pre>
+            <pre><code class="hljs">Output4:{{-98765.4321 | numFmt 2}}</code></pre>
+
+            <h4 id="hint"><span>math.Log</span></h4>
+            <pre><code class="hljs">Example:{{`{{math.Log 1}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{math.Log 1}}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{math.Log 2}}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{math.Log 2}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{math.Log 4}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{math.Log 4}}</code></pre>
+
+            <hr/>
+
+            <h4 id="hint"><span>math.Log</span></h4>
+            <pre><code class="hljs">Example:{{`{{math.Log 1}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{math.Log 1}}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{math.Log 2}}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{math.Log 2}}</code></pre>
+            <pre><code class="hljs">Example:{{`{{math.Log 4}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{math.Log 4}}</code></pre>
+
+            <hr/>
+
+            <h4 id="hint"><span>path.Base</span></h4>
+            <pre><code class="hljs">Example:{{`{{path.Base "a/news.html"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{path.Base "a/news.html"}}</code></pre>
+
+            <h4 id="hint"><span>path.Dir</span></h4>
+            <pre><code class="hljs">Example:{{`{{path.Dir "a/news.html"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{path.Dir "a/news.html"}}</code></pre>
+
+            <h4 id="hint"><span>path.Ext</span></h4>
+            <pre><code class="hljs">Example:{{`{{path.Ext "a/news.html"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{path.Ext "a/news.html"}}</code></pre>
+
+            <h4 id="hint"><span>path.Join</span></h4>
+            <pre><code class="hljs">Example:{{`{{path.Join "a" "news.html"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{path.Join "a" "news.html"}}</code></pre>
+
+            <h4 id="hint"><span>path.Split</span></h4>
+            <pre><code class="hljs">Example:{{`{{path.Split "a/news.html"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{path.Split "a/news.html"}}</code></pre>
+
+            <hr/>
+
+            <h4 id="hint"><span>substr</span></h4>
+            <pre><code class="hljs">Example:{{`{{substr "BatMan" 0 -3}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{substr "BatMan" 0 -3}}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{substr "BatMan" 3 3}}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{substr "BatMan" 3 3}}</code></pre>
+
+            <h4 id="hint"><span>trim</span></h4>
+            <pre><code class="hljs">Example:{{`{{trim "++Batman--" "+-"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{trim "++Batman--" "+-"}}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{trim "++Bat-man--" "-"}}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{trim "++Bat-man--" "-"}}</code></pre>
+
+            <h4 id="hint"><span>title</span></h4>
+            <pre><code class="hljs">Example:{{`{{title "helloWORLD"}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{title "helloWORLD"}}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{title "BatMan"}}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{title "BatMan"}}</code></pre>
+
+            <h4 id="hint"><span>truncate</span></h4>
+            <pre><code class="hljs">Example:{{`{{ "<em>Keep my HTML</em>" | safeHTML | truncate 10 }}`}}</code></pre>
+            <pre><code class="hljs">Output:{{ "<em>Keep my HTML</em>" | safeHTML | truncate 10 }}</code></pre>
+
+            <h4 id="hint"><span>strings.TrimLeft</span></h4>
+            <pre><code class="hljs">Example:{{`{{ strings.TrimLeft "a" "abba" }}`}}</code></pre>
+            <pre><code class="hljs">Output:{{ strings.TrimLeft "a" "abba" }}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{ strings.TrimLeft 12 1221341221 }}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{ strings.TrimLeft 12 1221341221 }}</code></pre>
+
+            <h4 id="hint"><span>strings.TrimPrefix</span></h4>
+            <pre><code class="hljs">Example:{{`{{ strings.TrimPrefix "a" "aabbaa" }}`}}</code></pre>
+            <pre><code class="hljs">Output:{{ strings.TrimPrefix "a" "aabbaa" }}</code></pre>
+            <pre><code class="hljs">Example1:{{`{{ strings.TrimPrefix "aaa" "aabbaa" }}`}}</code></pre>
+            <pre><code class="hljs">Output1:{{ strings.TrimPrefix "aaa" "aabbaa" }}</code></pre>
+
+            <hr/>
+            <h4 id="hint"><span>dateFormat</span></h4>
+            <pre><code class="hljs">Example:{{`{{ now|dateFormat "2006-01-02" }}`}}</code></pre>
+            <pre><code class="hljs">Output:{{ now|dateFormat "2006-01-02" }}</code></pre>
+
+            <h4 id="hint"><span>now</span></h4>
+            <pre><code class="hljs">Example:{{`{{ now }}`}}</code></pre>
+            <pre><code class="hljs">Output:{{ now }}</code></pre>
+
+            <h4 id="hint"><span>time</span></h4>
+            <pre><code class="hljs">Example:{{`{{(time "2019-01-21").Year}}`}}</code></pre>
+            <pre><code class="hljs">Output:{{(time "2019-01-21").Year}}</code></pre>
+
+            <h4 id="hint"><span>duration</span></h4>
+            <pre><code class="hljs">Example:{{`{{ mul 60 60 | duration "second" }}`}}</code></pre>
+            <pre><code class="hljs">Output:{{ mul 60 60 | duration "second" }}</code></pre>
+
+            <h4 id="hint"><span>htmlEscape</span></h4>
+            <pre><code class="hljs">Example:{{`{{ "<a>asdf>&</a>" |htmlEscape }}`}}</code></pre>
+            <pre><code class="hljs">Output:{{ "<a>asdf>&</a>" |htmlEscape }}</code></pre>
+
+            <h4 id="hint"><span>htmlUnescape</span></h4>
+            <pre><code class="hljs">Example:{{`{{ "<a>asdf>&</a>" |htmlEscape|htmlUnescape }}`}}</code></pre>
+            <pre><code class="hljs">Output:{{ "<a>asdf>&</a>" |htmlEscape|htmlUnescape }}</code></pre>
 
         </div>
     </div>

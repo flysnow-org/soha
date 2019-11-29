@@ -72,13 +72,6 @@ func init() {
 			},
 		)
 
-		ns.AddMethodMapping(ctx.ParseDuration,
-			nil,
-			[][2]string{
-				{`{{ "1h12m10s" | time.ParseDuration }}`, `1h12m10s`},
-			},
-		)
-
 		return ns
 
 	}

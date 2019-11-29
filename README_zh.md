@@ -118,9 +118,15 @@ in SET ITEM
 ```
 
 #### intersect
-饭盒两个集合的合集
+返回两个集合的合集
 ```
 intersect SET1 SET2
+```
+
+#### union
+返回两个集合(数组、切片)的并集
+```
+union SET1 SET2
 ```
 
 #### isset
@@ -143,20 +149,17 @@ querify KEY VALUE [KEY VALUE]...
 shuffle COLLECTION
 ```
 
-#### union
-Given two arrays or slices, returns a new array that contains the elements or objects that belong to either or both arrays/slices.
-```
-union SET1 SET2
-```
-
 #### where
-Filters an array to only the elements containing a matching value for a given field.
+和我们SQL的where差不多，用于根据给定的字段值过滤出一个新的集合。这里需要注意的是集合必须为Array、Slice和Map，
+如果是Map的话，那么Map对应的Value必须是Array、Slice，而这些Array、Slice中存储的是一个个DataType集合。
+
+`OPERATOR`是一个可选的操作符，不写的话是`=`，也可以是其他`!=`,`>` `in`等操作符
 ```
 where COLLECTION KEY [OPERATOR] MATCH
 ```
 
 #### append
-append appends one or more values to a slice and returns the resulting slice.
+添加一个或者多个元素到Slice，并且返回一个新Slice
 ```
 COLLECTION | append VALUE [VALUE]...
 
@@ -164,7 +167,7 @@ COLLECTION | append COLLECTION
 ```
 
 #### seq
-Creates a sequence of integers.
+创建一个`int`类型的队列(slice)
 ```
 seq LAST
 
@@ -174,7 +177,7 @@ seq FIRST INCREMENT LAST
 ```
 
 #### uniq
-Takes in a slice or array and returns a slice with subsequent duplicate elements removed.
+去除array或者slice中重复的元素，返回一个新的去重后的slice
 ```
 uniq SET
 ```
@@ -182,19 +185,19 @@ uniq SET
 ---
 
 #### md5
-hashes the given input and returns its MD5 checksum.
+返回MD5散列后的哈希值
 ```
 md5 INPUT
 ```
 
 #### sha1
-hashes the given input and returns its SHA1 checksum.
+返回SHA1散列后的哈希值
 ```
 sha1 INPUT
 ```
 
 #### sha256
-hashes the given input and returns its SHA256 checksum.
+返回SHA256散列后的哈希值
 ```
 sha256 INPUT
 ```
@@ -202,7 +205,7 @@ sha256 INPUT
 ---
 
 #### base64
-`base64Encode` and `base64Decode` let you easily decode content with a base64 encoding and vice versa through pipes.
+`base64Encode` and `base64Decode` ,base64位编码和解码。
 ```
 base64Decode INPUT
 
@@ -210,7 +213,7 @@ base64Encode INPUT
 ```
 
 #### jsonify
-Encodes a given object to JSON.
+把一个对象编码为JSON.
 ```
 jsonify INPUT
 ```
@@ -218,99 +221,99 @@ jsonify INPUT
 ---
 
 #### numFmt
-Formats a number with a given precision using the requested negative, decimal, and grouping options. The options parameter is a string consisting of <negative> <decimal> <grouping>.
+数字格式化。`PRECISION`是精度，`OPTIONS`的组成格式为`<negative> <decimal> <grouping>`
 ```
 numFmt PRECISION NUMBER [OPTIONS [DELIMITER]]
 ```
 
 #### add
-Add adds two numbers
+加法运算
 ```
 add INPUT1 INPUT2
 ```
 
-#### math.Ceil
-Returns the least integer value greater than or equal to the given number.
+#### sub
+减法运算
 ```
-math.Ceil FLOAT
+sub INPUT1 INPUT2
+```
+
+#### mul
+乘法运算
+```
+mul INPUT1 INPUT2
 ```
 
 #### div
-Divides two numbers.
+除法运算
 ```
 div INPUT1 INPUT2
 ```
 
-#### math.Floor
-Returns the greatest integer value less than or equal to the given number.
-```
-math.Floor FLOAT
-```
-
-#### math.Log
-Log returns the natural logarithm of a number.
-```
-math.Log FLOAT
-```
-
 #### mod
-Modulus of two integers,returns `INPUT1 % INPUT2`.
+取模运算,返回 `INPUT1 % INPUT2`.
 ```
 div INPUT1 INPUT2
 ```
 
 #### modBool
-Boolean of modulus of two integers. Evaluates to `true` if `INT1%INT2` equals 0.
+是否可以整除
 ```
 modBool INT1 INT2
 ```
 
-#### mul
-Multiplies two numbers.
+#### math.Ceil
+向上取整
 ```
-mul INPUT1 INPUT2
+math.Ceil FLOAT
+```
+
+#### math.Floor
+向下取整
+```
+math.Floor FLOAT
 ```
 
 #### math.Round
-Returns the nearest integer, rounding half away from zero.
+四舍五入，取最接近的整数
 ```
 math.Round FLOAT
 ```
 
-#### sub
-Subtracts two numbers.
+#### math.Log
+对数函数
 ```
-sub INPUT1 INPUT2
+math.Log FLOAT
 ```
 
 ---
 
 #### path.Base
-Base returns the last element of a path.
+返回路径中最后的元素
 ```
 path.Base PATH
 ```
 
 #### path.Dir
-Dir returns all but the last element of a path.
+返回路径中除了最后一个元素之外的所有
 ```
 path.Dir PATH
 ```
 
 #### path.Ext
-Ext returns the file name extension of a path.
+返回一个路径中文件扩展名
 ```
 path.Ext PATH
 ```
 
 #### path.Join
-Join path elements into a single path.
+多个路径拼接为一个
 ```
 path.Join ELEMENT...
 ```
 
 #### path.Split
-Split path immediately following the final slash.
+把路径拆分为目录和文件，返回一个`DirFile`
 ```
 path.Split PATH
 ```
@@ -318,37 +321,37 @@ path.Split PATH
 ---
 
 #### reflect.IsMap
-Reports if a value is a map.
+判断是否是Map类型
 ```
 reflect.IsMap INPUT
 ```
 
 #### reflect.IsSlice
-Reports if a value is a slice.
+判断是否是Slice类型
 ```
 reflect.IsSlice INPUT
 ```
 
 #### safeCSS
-Declares the provided string as a known “safe” CSS string.
+转换为安全的CSS字符串
 ```
 safeCSS INPUT
 ```
 
 #### safeHTML
-Declares a provided string as a “safe” HTML document to avoid escaping by Go templates.
+转换为安全的HTML字符串
 ```
 safeHTML INPUT
 ```
 
 #### safeHTMLAttr
-Declares the provided string as a safe HTML attribute.
+转换为安全的HTML标签属性字符串
 ```
 safeHTMLAttr INPUT
 ```
 
 #### safeJS
-Declares the provided string as a known safe JavaScript string.
+转换为安全的JS字符串
 ```
 safeJS INPUT
 ```
@@ -356,121 +359,115 @@ safeJS INPUT
 ---
 
 #### chomp
-Removes any trailing newline characters.
+删除所有结尾的换行符
 ```
 chomp INPUT
 ```
 
 #### findRE
-Returns a list of strings that match the regular expression.
+根据正则查找字符串，返回匹配的字符串列表
 ```
 findRE PATTERN INPUT [LIMIT]
 ```
 
 #### hasPrefix
-Tests whether a string begins with prefix.
+字符串是否有某个前缀
 ```
 hasPrefix STRING PREFIX
 ```
 
 #### lower
-Converts all characters in the provided string to lowercase.
+转换所有的字母为小写
 ```
 lower INPUT
 ```
 
 #### upper
-Converts all characters in a string to uppercase
+转换所有的字母为大写
 ```
 upper INPUT
 ```
 
 #### replace
-Replaces all occurrences of the search string with the replacement string.
+替换所有匹配的字符串为新的字符串
 ```
 replace INPUT OLD NEW
 ```
 
 #### replaceRE
-Replaces all occurrences of a regular expression with the replacement pattern.
+根据正则进行字符串替换
 ```
 replaceRE PATTERN REPLACEMENT INPUT
 ```
 
-#### slicestr
-Creates a slice of a half-open range, including start and end indices.
-```
-slicestr STRING START [END]
-```
-
 #### split
-splits a string into substrings separated by a delimiter
+根据定界符对字符串拆分，返回一个字符串数组
 ```
 split STRING DELIM
 ```
 
 #### substr
-Extracts parts of a string from a specified character's position and returns the specified number of characters.
+截取字符串
 ```
 substr STRING START [LENGTH]
 ```
 
 #### trim
-Returns a slice of a passed string with all leading and trailing characters from cutset removed.
+去掉字符串前后指定的字符
 ```
 trim INPUT CUTSET
 ```
 
 #### title
-Converts all characters in the provided string to title case.
+转换所有字符串为标题风格的字符串
 ```
 title INPUT
 ```
 
 #### truncate
-Truncates a text to a max length without cutting words or leaving unclosed HTML tags.
+比较智能的截取字符串：不会截断单词
 ```
 truncate SIZE INPUT
 ```
 
 #### strings.HasSuffix
-Determine whether or not a given string ends with the provided trailing suffix string.
+判断一个字符串的后缀是否是某个字符串
 ```
 strings.HasSuffix STRING SUFFIX
 ```
 
 #### strings.Repeat
-Returns a string consisting of count copies of the string s.
+返回字符串INPUT被重复COUNT次组成的字符串
 ```
 strings.Repeat INPUT COUNT
 ```
 
 #### strings.RuneCount
-Determines the number of runes in a string.
+返回字符串的大小，更准确，因为是按RUNE类型计算的，可以计算包含中文的字符串
 ```
 strings.RuneCount INPUT
 ```
 
 #### strings.TrimLeft
-Returns a slice of a given string with all leading characters contained in the cutset removed.
+去掉字符串左边的`CUTSET`,然后返回新的字符串
 ```
 strings.TrimLeft CUTSET STRING
 ```
 
 #### strings.TrimPrefix
-Returns a given string s without the provided leading prefix string. If s doesn't start with prefix, s is returned unchanged.
+和`strings.TrimLeft`不同，`strings.TrimPrefix`要求是前缀全字符串匹配的，而不是`strings.TrimLeft`一个个的字符匹配
 ```
 strings.TrimPrefix PREFIX STRING
 ```
 
 #### strings.TrimRight
-Returns a slice of a given string with all trailing characters contained in the cutset removed.
+去掉字符串右边的`CUTSET`,然后返回新的字符串
 ```
 strings.TrimRight CUTSET STRING
 ```
 
 #### strings.TrimSuffix
-Returns a given string s without the provided trailing suffix string. If s doesn't end with suffix, s is returned unchanged.
+和`strings.TrimRight`不同，`strings.TrimSuffix`要求是后缀全字符串匹配的，而不是`strings.TrimRight`一个个的字符匹配
 ```
 strings.TrimSuffix SUFFIX STRING
 ```
@@ -478,26 +475,26 @@ strings.TrimSuffix SUFFIX STRING
 ---
 
 #### dateFormat
-Converts the textual representation of the datetime into the specified format.
+日期时间格式化，把时间（字符串）格式化为指定的格式
 ```
 dateFormat LAYOUT INPUT
 ```
 
 #### now
-Returns the current local time
+返回当前时间
 ```
 now
 ```
 
 #### time
-Converts a timestamp string into a `time.Time` structure.
+把一个时间戳字符串转换为`time.Time`
 ```
 time INPUT
 ```
 
 #### duration
-Duration converts the given number to a time.Duration.
-Unit is one of nanosecond/ns, microsecond/us/µs, millisecond/ms, second/s, minute/m or hour/h.
+把给定的数字转换为`time.Duration`
+`Unit`可以是以下几种： nanosecond/ns, microsecond/us/µs, millisecond/ms, second/s, minute/m or hour/h.
 ```
 duration UNIT NUMBER
 ```
@@ -505,24 +502,24 @@ duration UNIT NUMBER
 ---
 
 #### htmlEscape
-Returns the given string with the reserved HTML codes escaped.
+HTML中的特殊字符转义
 ```
 htmlEscape INPUT
 ```
 
 #### htmlUnescape
-Returns the given string with HTML escape codes un-escaped.
+HTML中的特殊字符 反-转义
 ```
 htmlUnescape INPUT
 ```
 
-## Example
+## 示例
 
-You can find a number of ready-to-run examples at [SOHA examples repository](example/)
+SOHA使用示例参考 [SOHA 示例](example/)
 
-## Acknowledgements
+## 致谢
 
-Thanks to [HUGO](https://github.com/gohugoio/hugo),SOHA extracted HUGO's template functions and modified them.
+特别感谢 [HUGO](https://github.com/gohugoio/hugo),HUGO内置了很多优秀的函数库，SOHA抽取了他们并进行了修剪和增强。
 
 ## License
 

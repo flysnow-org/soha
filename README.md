@@ -124,7 +124,13 @@ Returns the common elements of two arrays or slices.
 intersect SET1 SET2
 ```
 
-#### isSet,isset
+#### union
+Given two arrays or slices, returns a new array that contains the elements or objects that belong to either or both arrays/slices.
+```
+union SET1 SET2
+```
+
+#### isset
 Returns true if the parameter is set.
 ```
 isset COLLECTION INDEX
@@ -142,12 +148,6 @@ querify KEY VALUE [KEY VALUE]...
 Returns a random permutation of a given array or slice.
 ```
 shuffle COLLECTION
-```
-
-#### union
-Given two arrays or slices, returns a new array that contains the elements or objects that belong to either or both arrays/slices.
-```
-union SET1 SET2
 ```
 
 #### where
@@ -230,28 +230,22 @@ Add adds two numbers
 add INPUT1 INPUT2
 ```
 
-#### math.Ceil
-Returns the least integer value greater than or equal to the given number.
+#### sub
+Subtracts two numbers.
 ```
-math.Ceil FLOAT
+sub INPUT1 INPUT2
+```
+
+#### mul
+Multiplies two numbers.
+```
+mul INPUT1 INPUT2
 ```
 
 #### div
 Divides two numbers.
 ```
 div INPUT1 INPUT2
-```
-
-#### math.Floor
-Returns the greatest integer value less than or equal to the given number.
-```
-math.Floor FLOAT
-```
-
-#### math.Log
-Log returns the natural logarithm of a number.
-```
-math.Log FLOAT
 ```
 
 #### mod
@@ -266,10 +260,16 @@ Boolean of modulus of two integers. Evaluates to `true` if `INT1%INT2` equals 0.
 modBool INT1 INT2
 ```
 
-#### mul
-Multiplies two numbers.
+#### math.Ceil
+Returns the least integer value greater than or equal to the given number.
 ```
-mul INPUT1 INPUT2
+math.Ceil FLOAT
+```
+
+#### math.Floor
+Returns the greatest integer value less than or equal to the given number.
+```
+math.Floor FLOAT
 ```
 
 #### math.Round
@@ -278,10 +278,10 @@ Returns the nearest integer, rounding half away from zero.
 math.Round FLOAT
 ```
 
-#### sub
-Subtracts two numbers.
+#### math.Log
+Log returns the natural logarithm of a number.
 ```
-sub INPUT1 INPUT2
+math.Log FLOAT
 ```
 
 ---
@@ -396,12 +396,6 @@ replace INPUT OLD NEW
 Replaces all occurrences of a regular expression with the replacement pattern.
 ```
 replaceRE PATTERN REPLACEMENT INPUT
-```
-
-#### slicestr
-Creates a slice of a half-open range, including start and end indices.
-```
-slicestr STRING START [END]
 ```
 
 #### split
@@ -523,7 +517,7 @@ You can find a number of ready-to-run examples at [SOHA examples repository](exa
 
 ## Acknowledgements
 
-Thanks to [HUGO](https://github.com/gohugoio/hugo),SOHA extracted HUGO's template functions and modified them.
+Thanks to [HUGO](https://github.com/gohugoio/hugo),SOHA extracted HUGO's template functions and Enhance them.
 
 ## License
 
