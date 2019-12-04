@@ -48,6 +48,15 @@ func main() {
 e10adc3949ba59abbe56e057f20f883e
 ```
 
+## Golang Gin web framework example
+
+```go
+router := gin.Default()
+    
+sohaFuncMap := soha.CreateFuncMap()
+router.SetFuncMap(sohaFuncMap)
+```
+
 ## SOHA Functions List
 
 #### int

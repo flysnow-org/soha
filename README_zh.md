@@ -47,6 +47,15 @@ func main() {
 e10adc3949ba59abbe56e057f20f883e
 ```
 
+## Golang Gin框架示例
+
+```go
+router := gin.Default()
+    
+sohaFuncMap := soha.CreateFuncMap()
+router.SetFuncMap(sohaFuncMap)
+```
+
 ## SOHA 可以使用的函数介绍
 
 #### int
